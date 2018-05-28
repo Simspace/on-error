@@ -1,0 +1,11 @@
+name: on-error
+
+dependencies:
+  - base
+  - exceptions
+  - mtl
+  - text
+  - transformers
+
+library:
+  source-dirs: "src"
