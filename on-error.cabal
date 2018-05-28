@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 8a5eb33162b765d54f15947ad52687506e8d8c082b6430b6a9ed7e1e9ceea3d7
+-- hash: 437847fedfe0e7aca7ad5f568907417e649bd25a1f3f7ad81d7c607e082a9ad5
 
 name:           on-error
 version:        0.0.0
@@ -20,6 +20,7 @@ library
     , transformers
   exposed-modules:
       Control.Monad.OnError
+      Control.Monad.Trans.OnError
   other-modules:
       Paths_on_error
   default-language: Haskell2010

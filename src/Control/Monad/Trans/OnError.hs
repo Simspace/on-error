@@ -146,14 +146,14 @@
 -- So please, document your invariants and pre-conditions, and act accordingly! Using different types for those two
 -- different cases, even if the underlying representation is the same, is a simple and lightweight way write this
 -- documentation.
-module Control.Monad.OnError where
+module Control.Monad.Trans.OnError where
 
 import Prelude hiding (lines, unlines)
 
 import Control.Exception (throwIO)
 import Control.Monad ((<=<))
 import Control.Monad.Catch (MonadThrow, throwM)
-import Control.Monad.Except (ExceptT, MonadError, catchError, runExceptT, throwError)
+import Control.Monad.Trans.Except (ExceptT, catchE, withExceptT, runExceptT, throwE)
 import Control.Monad.Fail (MonadFail)
 import Control.Monad.IO.Class (MonadIO, liftIO)
 import Control.Monad.Trans.Class (lift)
@@ -167,41 +167,41 @@ import qualified Control.Monad.Fail as Fail
 
 -- |Lift one of the @on[Condition]ThrowError@ checks so it works on a computation instead of a value
 --
--- > onNothingThrowError e             :: MonadError e t =>    Maybe a  ->           t a
--- > liftCheck (onNothingThrowError e) ::                   m (Maybe a) -> ExceptT e m a
+-- > onNothingThrowError e             ::    Maybe a  -> ExceptT e m a
+-- > liftCheck (onNothingThrowError e) :: m (Maybe a) -> ExceptT e m a
 liftCheck :: Monad m
           => (a -> ExceptT e m b)
           -> (m a -> ExceptT e m b)
 liftCheck f mx = f =<< lift mx
 
 -- |Fail the computation if given a 'Left'
-onLeftThrowError :: MonadError e m => Either e a -> m a
-onLeftThrowError = either throwError pure
+onLeftThrowError :: Monad m => Either e a -> ExceptT e m a
+onLeftThrowError = either throwE pure
 
 -- |Fail the computation if given 'Nothing'
-onNothingThrowError :: MonadError e m => e -> Maybe a -> m a
-onNothingThrowError e = maybe (throwError e) pure
+onNothingThrowError :: Monad m => e -> Maybe a -> ExceptT e m a
+onNothingThrowError e = maybe (throwE e) pure
 
 
 -- ** Transforming errors
 
 -- |If an error propagates up this call, add some contextual information
-annotateError :: MonadError Text m => Text -> m a -> m a
-annotateError annotation = flip catchError $ \err -> do
-  throwError $ annotation <> ": " <> err
+annotateError :: Monad m => Text -> ExceptT Text m a -> ExceptT Text m a
+annotateError annotation = flip catchE $ \err -> do
+  throwE $ annotation <> ": " <> err
 
 -- |A variant of 'annotateError' which indents the rest of the error message by two spaces
-annotateAndIndentError :: MonadError Text m => Text -> m a -> m a
-annotateAndIndentError annotation = flip catchError $ \err -> do
+annotateAndIndentError :: Monad m => Text -> ExceptT Text m a -> ExceptT Text m a
+annotateAndIndentError annotation = flip catchE $ \err -> do
   let indentedErr = unlines . fmap ("  " <>) . lines $ err
-  throwError $ annotation <> ":\n" <> indentedErr
+  throwE $ annotation <> ":\n" <> indentedErr
 
 -- |If an error propagates up this call, transform it using the given function
-mapError :: MonadError e' m => (e -> e') -> ExceptT e m a -> m a
-mapError f = onErrorCatch (throwError . f)
+mapError :: Monad m => (e -> e') -> ExceptT e m a -> ExceptT e' m a
+mapError = withExceptT
 
 -- |If an error propagates up this call, replace it with the given error
-replaceError :: MonadError e' m => e' -> ExceptT e m a -> m a
+replaceError :: Monad m => e' -> ExceptT e m a -> ExceptT e' m a
 replaceError e' = mapError (const e')
 
 
