@@ -24,15 +24,6 @@ import Control.Monad.Extra ((=<<$))
 
 -- ** Detecting errors
 
--- |Lift one of the @on[Condition]ThrowError@ checks so it works on a computation instead of a value
---
--- > onNothingThrowError e             :: MonadError e t =>    Maybe a  ->           t a
--- > liftCheck (onNothingThrowError e) ::                   m (Maybe a) -> ExceptT e m a
-liftCheck :: Monad m
-          => (a -> ExceptT e m b)
-          -> (m a -> ExceptT e m b)
-liftCheck f mx = f =<< lift mx
-
 -- |Fail the computation if given a 'Left'
 onLeftThrowError :: MonadError e m => Either e a -> m a
 onLeftThrowError = either throwError pure
