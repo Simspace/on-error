@@ -1,5 +1,9 @@
 {-# LANGUAGE FlexibleContexts, OverloadedStrings #-}
-module Control.Monad.OnError where
+module Control.Monad.OnError
+  ( module Control.Monad.OnError
+  -- * helpers
+  , (=<<$)
+  ) where
 
 import Prelude hiding (lines, unlines)
 
@@ -14,6 +18,8 @@ import Data.Monoid ((<>))
 import Data.Text (Text, lines, unlines, unpack)
 import GHC.Exception (errorCallException)
 import qualified Control.Monad.Fail as Fail
+
+import Control.Monad.Extra ((=<<$))
 
 
 -- ** Detecting errors

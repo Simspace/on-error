@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 437847fedfe0e7aca7ad5f568907417e649bd25a1f3f7ad81d7c607e082a9ad5
+-- hash: e7b8ed88bb235a90520161ef9d55c5da43071a66d40c07258dcdcdc19064ab3c
 
 name:           on-error
 version:        0.0.0
@@ -19,6 +19,7 @@ library
     , text
     , transformers
   exposed-modules:
+      Control.Monad.Extra
       Control.Monad.OnError
       Control.Monad.Trans.OnError
   other-modules:
