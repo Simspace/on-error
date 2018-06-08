@@ -67,7 +67,7 @@ errors which we know can happen within the current code. If you only plan to log
 `Text` is a good enough representation, but if you plan to handle some of those errors later on, `SomeException` and
 `Text` are terrible representations because they don't give your callers any information about the set of error cases
 they might want to handle. If you want to do error-_handling_, not just error-displaying, a sum type would be a better
-choice for `e`. See [Handling errors](#Handling errors) for some concrete suggestions.
+choice for `e`. See [Handling errors](#handling-errors) for some concrete suggestions.
 
 In any case, here's how to obtain an `e` in all three cases.
 
@@ -78,7 +78,7 @@ In any case, here's how to obtain an `e` in all three cases.
     polluting your non-error-handling code with error-handling concerns such as converting to `Maybe` or `Either`.
 2.  For `ExceptT.throwE` and `MonadError.throwError`, there is nothing to do, because `Control.Monad.Trans.OnError`
     already uses `ExceptT` to propagate the error upwards. The `Control.Monad.OnError` API is slightly different in that
-    regard, see the [Propagating and transforming errors](#Propagating and transforming errors) section for details.
+    regard, see the [Propagating and transforming errors](#propagating-and-transforming-errors) section for details.
     the `Control.Monad.OnError` API.
 
     For `MonadFail.fail`, the behaviour depends on the monad. Due to a design wart, calling `fail` often throws an
