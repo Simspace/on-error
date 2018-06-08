@@ -79,7 +79,6 @@ In any case, here's how to obtain an `e` in all three cases.
 2.  For `ExceptT.throwE` and `MonadError.throwError`, there is nothing to do, because `Control.Monad.Trans.OnError`
     already uses `ExceptT` to propagate the error upwards. The `Control.Monad.OnError` API is slightly different in that
     regard, see the [Propagating and transforming errors](#propagating-and-transforming-errors) section for details.
-    the `Control.Monad.OnError` API.
 
     For `MonadFail.fail`, the behaviour depends on the monad. Due to a design wart, calling `fail` often throws an
     exception, even for error-tracking monads such as `Either` and `ExceptT`.
