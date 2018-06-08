@@ -170,7 +170,7 @@ keep the number of error cases small at all levels.
 
 At the top-level, the caller is the user. For them, a sum type describing all the possible error cases is less useful;
 what they need is a clear error message. So once we have enough context to know that an error cannot be handled by the
-code and will have to be displayed to the user, I recommend converting the value representing to error to `Text`, and to
+code and will have to be displayed to the user, I recommend converting the value representing the error to `Text`, and to
 propagate that error message upwards. With judicious uses of `annotateError`, this error message can be annotated with
 some contextual information clarifying where the error has occurred.
 
