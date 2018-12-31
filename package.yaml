@@ -9,3 +9,8 @@ dependencies:
 
 library:
   source-dirs: "src"
+  exposed-modules:
+    - Control.Monad.OnError
+    - Control.Monad.Trans.OnError
+  other-modules:
+    - Control.Monad.Extra

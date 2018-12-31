@@ -1,13 +1,14 @@
--- This file has been generated from package.yaml by hpack version 0.20.0.
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.31.0.
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: e7b8ed88bb235a90520161ef9d55c5da43071a66d40c07258dcdcdc19064ab3c
+-- hash: 23f9c60f703d733b85369cf495870626aa49950351bcff63fe52e5929e56e1af
 
 name:           on-error
 version:        0.0.0
 build-type:     Simple
-cabal-version:  >= 1.10
 
 library
   hs-source-dirs:
@@ -19,9 +20,8 @@ library
     , text
     , transformers
   exposed-modules:
-      Control.Monad.Extra
       Control.Monad.OnError
       Control.Monad.Trans.OnError
   other-modules:
-      Paths_on_error
+      Control.Monad.Extra
   default-language: Haskell2010
