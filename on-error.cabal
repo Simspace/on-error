@@ -4,13 +4,18 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 23f9c60f703d733b85369cf495870626aa49950351bcff63fe52e5929e56e1af
+-- hash: c63a3e3ff11f279d6d63e14f6370f64977b21efbac44ded83ef071376365c12c
 
 name:           on-error
 version:        0.0.0
 build-type:     Simple
 
 library
+  exposed-modules:
+      Control.Monad.OnError
+      Control.Monad.Trans.OnError
+  other-modules:
+      Control.Monad.Extra
   hs-source-dirs:
       src
   build-depends:
@@ -19,9 +24,4 @@ library
     , mtl
     , text
     , transformers
-  exposed-modules:
-      Control.Monad.OnError
-      Control.Monad.Trans.OnError
-  other-modules:
-      Control.Monad.Extra
   default-language: Haskell2010
