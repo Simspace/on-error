@@ -1,5 +1,7 @@
 # on-error: clearly-delineated error-handling
 
+[![Build Status](https://travis-ci.com/simspace/on-error.svg?branch=master)](https://travis-ci.com/simspace/on-error)
+
 Error-handling code is messy, but if we want to provide good error messages, we should still take the time to do it
 right. `on-error` provides a naming convention which clearly distinguishes error-handling code from the rest of the
 code, thereby allowing developers to only pay attention to the error-handling code when they want to do so.
